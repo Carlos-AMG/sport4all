@@ -41,5 +41,5 @@ class Producto extends Model
             ->withPivot('cantidad', 'precio');
     }
 
-    protected $fillable = ['nombre','existencia','precio','descripcion','imagen','departamento_id'];
+    protected $fillable = ['nombre','existencia','precio','descripcion','imagen','departamento_id', 'marca_id'];
 }

@@ -57,11 +57,10 @@ class ProductoController extends Controller
             'precio' => 'required',
             'descripcion' => ['required','min:1','max:300'],
             'imagen' => 'required',
-            'marca_id' => 'required' 
         ]);
-
-        $producto = Producto::create($request->all());
-        $producto->marca()->associate($request->marca_id)->save(); // Asigna la marca al producto
+        // dd($request->all());
+        Producto::create($request->all());
+        // $producto->marca()->associate($request->marca_id)->save(); // Asigna la marca al producto
         
         Session::flash('success', "Producto '{$request->nombre}' creado con exito!");
         return redirect()->route('producto.index');

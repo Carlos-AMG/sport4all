@@ -12,7 +12,7 @@ use App\Models\Factura;
 use Illuminate\Support\Facades\Route;
 use App\Models\Producto;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\CompraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +48,7 @@ Route::get('/deletedProducts', [ProductoController::class,'eliminados']);
 Route::resource('departamento',DepartamentoController::class)->middleware('auth.admin');
 Route::resource('empleado',EmpleadoController::class)->middleware('auth.admin');
 Route::resource('marcas', MarcasController::class)->middleware('auth.admin');
+Route::resource('compra', CompraController::class)->middleware('auth.admin');
 Route::resource('factura',FacturaController::class);
 Route::resource('/informacion',InformacionController::class);
 

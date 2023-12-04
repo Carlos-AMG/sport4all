@@ -56,7 +56,16 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{route('marcas.index')}}">Mostrar Marcas</a></li>
                                     <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="{{route('marcas.create')}}">Agregar Marcas</a></li>
+                                    <li><a class="dropdown-item" href="{{route('marcas.create')}}">Agregar Marca</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Compras</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{route('compra.index')}}">Mostrar Compras</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="{{route('compra.create')}}">Agregar Compra</a></li>
                                 </ul>
                             </li>
 

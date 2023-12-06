@@ -34,7 +34,8 @@
 </head>
 <body>
     <!-- <img id="logo" src="{{ public_path('assets/logo_inge.jfif') }}" alt="Logo"> -->
-    <img src="{{asset('assets/sport4AllLogo.png')}}" alt="Logo" height="40" width="40" class="mr-2"> 
+    <img id="logo" src="{{ public_path('assets/sport4AllLogo.png') }}" alt="Logo">
+
 
 
     <h1>Factura</h1>

@@ -18,6 +18,7 @@ class Factura extends Model
             ->withTrashed()
             ->withPivot('cantidad', 'precio');
     }
+    
 
     protected $fillable = ['fecha','user_id'];
 }

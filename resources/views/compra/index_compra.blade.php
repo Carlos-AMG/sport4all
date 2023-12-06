@@ -36,6 +36,7 @@
             </div>
         @endif
 
+        <h1>Compras</h1>
         <div class="container mt-5">
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach ($compras as $compra)
@@ -54,7 +55,7 @@
                                             <li class="list-group-item">
                                                 <span>{{ $detalleCompra->producto->nombre }}</span>
                                                 <span class="badge bg-secondary">{{ $detalleCompra->cantidad }}</span>
-                                                <span class="float-right">${{ $detalleCompra->subtotal }}</span>
+                                                <span class="badge bg-success">Subtotal: ${{ number_format($detalleCompra->subtotal, 2)}}</span>
                                             </li>
                                             @php
                                                 $totalCompra += $detalleCompra->subtotal;

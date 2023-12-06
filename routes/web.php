@@ -38,6 +38,9 @@ use App\Http\Controllers\CompraController;
 // Route::resource('departamento',Departamento::class)->middleware('auth');
 
 Route::resource('producto', ProductoController::class);
+// Route::patch('/productos/{producto}/restore', [ProductoController::class, 'restore'])->name('producto.restore');
+Route::patch('/productos/{producto}/restore', [ProductoController::class, 'restore'])->name('producto.restore');
+
 
 // Route::get('/api/products/all', [ProductoController::class, 'getAllProductsApi']);
 Route::get('/api/products/all', [ProductoController::class, 'getAllProductsApi'])->name('api.products.all');

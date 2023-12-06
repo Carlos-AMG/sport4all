@@ -47,6 +47,9 @@
                 <div class="contenedor-mostrar-lista-elemento">
                     <h4>Departamento: {{$producto->departamento->nombre}}</h4>
                 </div>
+                <div class="contenedor-mostrar-lista-elemento">
+                    <h4>Marca: {{$producto->marca->nombre}}</h4>
+                </div>
             </div>
             @if(Auth::check())
                 @if (auth()->user()->role != 'user')

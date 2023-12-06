@@ -35,7 +35,7 @@
                                     <li><hr class="dropdown-divider" /></li>
                                     <li><a class="dropdown-item" href="{{route('producto.create')}}">Add Product</a></li>
                                     <li><a class="dropdown-item" href="/deletedProducts">Deleted Products</a></li>
-                                    <li><a class="dropdown-item" href="/allProducts">All Products</a></li>
+                                    <li><a class="dropdown-item" href="{{route('producto.index')}}">All Products</a></li>
                                 @endif      
                         </ul>
                     </li>

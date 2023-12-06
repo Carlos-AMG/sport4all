@@ -8,7 +8,7 @@
                 <!-- Product name-->
                 <h5 class="fw-bolder">{{ $producto->nombre }}</h5>
                 <!-- Product price-->
-                <p>Precio: {{ $producto->precio }}</p>
+                <p>Precio: ${{ $producto->precio }}</p>
                 <p>Existencias: {{ $producto->existencia}}</p>
             </div>
         </div>

@@ -70,6 +70,18 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="departamento_id">Departamento:</label>
+                        <select name="departamento_id" id="departamento_id" class="form-control">
+                            @foreach($departamentos as $departamento)
+                            <option value="{{ $departamento->id }}"
+                                {{ $producto->departamento_id == $departamento->id ? 'selected' : '' }}>
+                                {{ $departamento->nombre }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="d-flex justify-content-start">
                         <button type="submit" class="btn btn-primary btn-sm mr-2">Submit</button>
                         <a href="{{ route('producto.index') }}" class="btn btn-secondary btn-sm">Back</a>

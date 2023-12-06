@@ -38,46 +38,47 @@
         <h1>Compras</h1>
         <div class="container mt-5">
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach ($compras as $compra)
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">Fecha: {{ $compra->fecha }}</h5>
-                                <p class="card-text">Proveedor: {{ $compra->proveedor }}</p>
-                                <p class="card-text">Id: {{$compra->id}}</p>
-                                @if ($compra->detalleCompras)
-                                    <ul class="list-group list-group-flush">
-                                        @php
-                                            $totalCompra = 0;
-                                        @endphp
-                                        @foreach ($compra->detalleCompras as $detalleCompra)
-                                            <li class="list-group-item">
-                                                <span>{{ $detalleCompra->producto->nombre }}</span>
-                                                <span class="badge bg-secondary">{{ $detalleCompra->cantidad }}</span>
-                                                <span class="badge bg-success">Subtotal: ${{ number_format($detalleCompra->subtotal, 2)}}</span>
-                                            </li>
-                                            @php
-                                                $totalCompra += $detalleCompra->subtotal;
-                                            @endphp
-                                        @endforeach
-                                    </ul>
-                                    @php
-                                        $iva = ($totalCompra * $compra->iva) / 100;
-                                        $totalConIva = $totalCompra + $iva;
-                                    @endphp
-                                    <p class="font-weight-bold mt-2">Subtotal: ${{ $totalCompra }}</p>
-                                    <p class="font-weight-bold">IVA ({{ $compra->iva }}%): ${{ $iva }}</p>
-                                    <p class="font-weight-bold">Total con IVA: ${{ $totalConIva }}</p>
-                                @else
-                                    <p>No hay detalles de compra para esta compra.</p>
-                                @endif
-                            </div>
-                            <div class="card-footer text-center">
-                                <a href="{{ route('compra.show', ['compra' => $compra->id]) }}" class="btn btn-outline-dark" style="width: 100%">Mostrar</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+            @foreach ($compras as $compra)
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Fecha: {{ $compra->fecha }}</h5>
+                <p class="card-text">Proveedor: {{ $compra->proveedor }}</p>
+                <p class="card-text">Id: {{$compra->id}}</p>
+                @if ($compra->detalleCompras)
+                    <ul class="list-group list-group-flush">
+                        @php
+                            $totalCompra = 0;
+                        @endphp
+                        @foreach ($compra->detalleCompras as $detalleCompra)
+                            <li class="list-group-item">
+                                <span>{{ optional($detalleCompra->producto)->nombre ?? 'Producto Eliminado' }}</span>
+                                <span class="badge bg-secondary">{{ $detalleCompra->cantidad }}</span>
+                                <span class="badge bg-success">Subtotal: ${{ number_format($detalleCompra->subtotal, 2)}}</span>
+                                @php
+                                    $totalCompra += $detalleCompra->subtotal;
+                                @endphp
+                            </li>
+                        @endforeach
+                    </ul>
+                    @php
+                        $iva = ($totalCompra * $compra->iva) / 100;
+                        $totalConIva = $totalCompra + $iva;
+                    @endphp
+                    <p class="font-weight-bold mt-2">Subtotal: ${{ $totalCompra }}</p>
+                    <p class="font-weight-bold">IVA ({{ $compra->iva }}%): ${{ $iva }}</p>
+                    <p class="font-weight-bold">Total con IVA: ${{ $totalConIva }}</p>
+                @else
+                    <p>No hay detalles de compra para esta compra.</p>
+                @endif
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ route('compra.show', ['compra' => $compra->id]) }}" class="btn btn-outline-dark" style="width: 100%">Mostrar</a>
+            </div>
+        </div>
+    </div>
+@endforeach
+
             </div>
         </div>
     </div>

@@ -18,7 +18,8 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra::all()->reverse();
+        // $compras = Compra::all()->reverse();
+        $compras = Compra::withTrashed()->get()->reverse();
         return view('compra/index_compra',['compras' => $compras]);
     }
 

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
+    <x-nav_bar/>
     <div class="container mt-3">
         <div class="card">
             <div class="card-body">

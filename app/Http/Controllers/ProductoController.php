@@ -77,11 +77,18 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    // public function edit(Producto $producto)
+    // {
+    //     $marcas = Marcas::all(); // Agrega esta línea
+    //     return view('producto/edit_producto', compact('producto', 'marcas'));
+    //     // return view('producto/edit_producto',compact('producto'));
+    // }
+
     public function edit(Producto $producto)
     {
-        $marcas = Marcas::all(); // Agrega esta línea
-        return view('producto/edit_producto', compact('producto', 'marcas'));
-        // return view('producto/edit_producto',compact('producto'));
+        $marcas = Marcas::all(); // Modificación aquí
+        $departamentos = Departamento::all(); // Adición aquí
+        return view('producto/edit_producto', compact('producto', 'marcas', 'departamentos')); // Modificación aquí
     }
 
     /**
@@ -90,19 +97,16 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {
         $request->validate([
-            'nombre' => ['required','min:3','max:50'],
+            'nombre' => ['required', 'min:3', 'max:50'],
             'existencia' => 'required',
             'precio' => 'required',
-            'descripcion' => ['required','min:1','max:300'],
-            'imagen' => 'required'
+            'descripcion' => ['required', 'min:1', 'max:300'],
+            'imagen' => 'required',
+            'marca_id' => 'required', // Adición aquí
+            'departamento_id' => 'required', // Adición aquí
         ]);
 
-        Producto::where('id',$producto->id)->update($request->except('_token','_method'));
-        // $producto->nombre = $request->nombre;
-        // $producto->existencia = $request->existencia;
-        // $producto->precio = $request->precio;
-        // $producto->descripcion = $request->descripcion;
-        // $producto->save();
+        $producto->update($request->only('nombre', 'existencia', 'precio', 'descripcion', 'imagen', 'marca_id', 'departamento_id')); // Modificación aquí
         return redirect()->route('producto.index');
     }
 
@@ -122,5 +126,12 @@ class ProductoController extends Controller
     public function allProducts(){
         $productos = Producto::withTrashed()->get();
         return view('producto/todos_producto',['productos'=>$productos]);
+    }
+
+    public function restore(Producto $producto)
+    {
+        $producto->restore();
+        Session::flash('success', 'Producto restaurado correctamente.');
+        return redirect()->route('productos.index');
     }
 }

@@ -9,7 +9,7 @@ use App\Models\Compra;
 use App\Models\DetalleCompra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Auth;
 
 class CompraController extends Controller
 {
@@ -18,9 +18,8 @@ class CompraController extends Controller
      */
     public function index()
     {
-        $compras = Compra::all();
-
-        return view('compra/index_compra',['compra' => $compras]);
+        $compras = Compra::all()->reverse();
+        return view('compra/index_compra',['compras' => $compras]);
     }
 
     /**
@@ -93,7 +92,8 @@ class CompraController extends Controller
      */
     public function show(Compra $compra)
     {
-        
+        return view('compra/show_compra',compact('compra'));
+ 
     }
 
     /**

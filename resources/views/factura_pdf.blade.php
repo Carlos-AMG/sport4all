@@ -33,7 +33,9 @@
     </style>
 </head>
 <body>
-    <img id="logo" src="{{ public_path('assets/logo_inge.jfif') }}" alt="Logo">
+    <!-- <img id="logo" src="{{ public_path('assets/logo_inge.jfif') }}" alt="Logo"> -->
+    <img src="{{asset('assets/sport4AllLogo.png')}}" alt="Logo" height="40" width="40" class="mr-2"> 
+
 
     <h1>Factura</h1>
     <p>Precio Total: ${{ number_format($precio, 2) }}</p>

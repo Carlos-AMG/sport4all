@@ -7,7 +7,6 @@
     <title>Compras</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
-        /* Add some styles for the fading effect */
         .fade {
             animation: fadeOut 5s ease-in-out forwards;
         }
@@ -62,7 +61,13 @@
                                             @endphp
                                         @endforeach
                                     </ul>
-                                    <p class="font-weight-bold mt-2">Total de la compra: ${{ $totalCompra }}</p>
+                                    @php
+                                        $iva = ($totalCompra * $compra->iva) / 100;
+                                        $totalConIva = $totalCompra + $iva;
+                                    @endphp
+                                    <p class="font-weight-bold mt-2">Subtotal: ${{ $totalCompra }}</p>
+                                    <p class="font-weight-bold">IVA ({{ $compra->iva }}%): ${{ $iva }}</p>
+                                    <p class="font-weight-bold">Total con IVA: ${{ $totalConIva }}</p>
                                 @else
                                     <p>No hay detalles de compra para esta compra.</p>
                                 @endif

@@ -36,6 +36,11 @@
                         <input type="text" name="proveedor" id="proveedor" class="form-control" value="{{ old('proveedor') }}">
                     </div>
 
+                    <div class="form-group">
+                        <label for="iva">IVA (%):</label>
+                        <input type="number" name="iva" id="iva" class="form-control" value="{{ old('iva') }}" step="0.01" min="0" placeholder="Ingrese el porcentaje de IVA">
+                    </div>
+
                     <!-- Agregar detalles de productos -->
                     <label>Detalles de Productos:</label>
                     <div id="detalles-productos">

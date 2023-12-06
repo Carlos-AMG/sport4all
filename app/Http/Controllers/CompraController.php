@@ -41,6 +41,7 @@ class CompraController extends Controller
         $request->validate([
             'fecha' => 'required|date',
             'proveedor' => 'required|string',
+            'iva' => 'required|numeric|min:0',
             'productos' => 'required|array',  // El campo productos debe ser un array
             'productos.*.nombre' => 'required|string',
             'productos.*.cantidad' => 'required|integer|min:1',
@@ -53,6 +54,7 @@ class CompraController extends Controller
         $compra = Compra::create([
             'fecha' => $request->fecha,
             'proveedor' => $request->proveedor,
+            'iva' => $request->iva,
             // Otros campos de compra, si los tienes
         ]);
 
@@ -70,7 +72,7 @@ class CompraController extends Controller
                 // Otros campos del producto, si los tienes
             ]);
 
-            $subtotal = $productoData['cantidad'] * $productoData['precio_unitario'];
+            $subtotal = $productoData['cantidad'] * $productoData['precio_unitario'] *  (1 + $request->iva / 100);
             // Crea el detalle de compra con el producto asociado
             DetalleCompra::create([
                 'compra_id' => $compra->id,

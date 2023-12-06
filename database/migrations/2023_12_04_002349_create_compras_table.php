@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->string('proveedor');
             $table->decimal('total', 10, 2)->default(0.00);
+            $table->decimal('iva', 5, 2)->default(0.00); // Agregar columna para el IVA
         });
     }
 

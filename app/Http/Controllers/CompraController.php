@@ -55,7 +55,6 @@ class CompraController extends Controller
             'fecha' => $request->fecha,
             'proveedor' => $request->proveedor,
             'iva' => $request->iva,
-            // Otros campos de compra, si los tienes
         ]);
 
         // Detalles de productos
@@ -64,7 +63,7 @@ class CompraController extends Controller
             $producto = Producto::firstOrCreate([
                 'nombre' => $productoData['nombre'],
                 'existencia' => $productoData['cantidad'], // Considera cómo gestionar la existencia
-                'precio' => $productoData['precio_unitario'] * 1.2, // Precio un 20% más alto
+                'precio' => $productoData['precio_unitario'] * (1 + $request->iva / 100), // Precio con IVA incluido
                 'descripcion' => '', // Agrega la descripción si la tienes
                 'imagen' => '', // Agrega la imagen si la tienes
                 'departamento_id' => $productoData['departamento'],
@@ -72,7 +71,7 @@ class CompraController extends Controller
                 // Otros campos del producto, si los tienes
             ]);
 
-            $subtotal = $productoData['cantidad'] * $productoData['precio_unitario'] *  (1 + $request->iva / 100);
+            $subtotal = $productoData['cantidad'] * $productoData['precio_unitario'];
             // Crea el detalle de compra con el producto asociado
             DetalleCompra::create([
                 'compra_id' => $compra->id,
@@ -85,7 +84,7 @@ class CompraController extends Controller
         }
 
         // Puedes agregar lógica adicional, redireccionar a una vista, etc.
-        Session::flash('success', 'La compra se registro correctamente');
+        Session::flash('success', 'La compra se registró correctamente');
         return redirect()->route('compra.index');
     }
 

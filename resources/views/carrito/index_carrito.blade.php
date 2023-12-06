@@ -30,6 +30,8 @@
 
         <div class="text-right">
             <h5>Total: ${{ $total }}</h5>
+            <h5>IVA ({{ $ivaCompra }}%): ${{ $iva }}</h5>
+            <h5>Total con IVA: ${{ $totalConIva }}</h5>
         </div>
 
         <form action="{{ route('pay') }}" method="GET" class="mt-3">

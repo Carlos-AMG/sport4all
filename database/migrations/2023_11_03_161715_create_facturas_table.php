@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->date('fecha');
+            $table->decimal('iva', 5, 2)->default(16); // Agregar columna para el IVA
             // $table->timestamps();
         });
     }

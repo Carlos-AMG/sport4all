@@ -38,7 +38,9 @@
                             </ul>
                         </div>
                         <div class="card-footer text-center">
-                            <p class="font-weight-bold">Total de la factura: ${{ number_format($totalFactura, 2) }}</p>
+                            <p class="font-weight-bold">Subtotal: ${{ number_format($totalFactura, 2) }}</p>
+                            <p class="font-weight-bold">IVA ({{ $factura->iva }}%): ${{ number_format(($totalFactura * $factura->iva) / 100, 2) }}</p>
+                            <p class="font-weight-bold">Total de la factura: ${{ number_format($totalFactura + ($totalFactura * $factura->iva) / 100, 2) }}</p>
                             <a href="{{ route('factura.show', ['factura' => $factura->id]) }}" class="btn btn-outline-dark" style="width: 100%">Mostrar Detalles</a>
                         </div>
                     </div>
@@ -47,4 +49,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-eLDBdEph0Lh7pJg0JgxS+IKqB5F8J3z4NR3t3uMAf3
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-eLDBdEph0Lh7pJg0JgxS+IKqB5F8J3z4NR3t3uMAf3"></script>
+</body>
+</html>

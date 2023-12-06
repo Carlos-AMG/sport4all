@@ -10,7 +10,9 @@ use App\Models\Factura;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
+use App\Models\Compra; 
 use Barryvdh\DomPDF\PDF;
+
 
 class CartController extends Controller
 {
@@ -67,23 +69,30 @@ class CartController extends Controller
         return redirect()->route('producto.index')->with('success', ('Producto '. $product->nombre .' agregado al carrito.'));
     }
 
-    public function viewCart(){
+    public function viewCart()
+    {
         $user = Auth::user();
-    
+
         // Si el usuario no está autenticado, usa un identificador de invitado
         if (!$user) {
             $user = ['id' => session()->getId()];
         }
-    
+
         $cartItems = Cart::all()->where('user_id', $user->id);
-    
+        $ultimaCompra = Compra::withTrashed()->first();
+        $ivaCompra = $ultimaCompra ? $ultimaCompra->iva : 0;
+
         // Calcular el total
         $total = 0;
         foreach ($cartItems as $item) {
             $total += $item->quantity * $item->producto->precio;
         }
-    
-        return view('carrito/index_carrito', compact('cartItems', 'total'));
+
+        // Calcular el IVA y el total con IVA
+        $iva = ($total * $ivaCompra) / 100;
+        $totalConIva = $total + $iva;
+
+        return view('carrito/index_carrito', compact('cartItems', 'totalConIva', 'ivaCompra', 'total', 'iva'));
     }
 
     public function pay(){
@@ -97,8 +106,10 @@ class CartController extends Controller
         $cartItems = Cart::all()->where('user_id', $user->id);
         
         $factura = new Factura();
+        $ultimaCompra = Compra::withTrashed()->first();
         $factura->user_id = $user->id;
         $factura->fecha = $fechaFormateada;
+        $factura->iva = $ultimaCompra ? $ultimaCompra->iva : 0;
     
         $factura->save();
     
@@ -127,11 +138,7 @@ class CartController extends Controller
     
             $detalle->save();
             $item->delete();
-        }
-        
-
-        
-    
+        }    
         // $pdf->download($pdfFileName);
         // return $pdf->download($pdfFileName);
     

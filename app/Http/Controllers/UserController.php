@@ -22,29 +22,10 @@ class UserController extends Controller
         return view('factura/index_factura',['facturas'=>$facturas]);
     }
 
-    public function descargar_factura(Factura $factura){
-        // Obtén los detalles de la factura
-        // $detallesFactura = Detalle_Factura::where('factura_id', $factura->id)->get();
-        // $detallesFactura = Detalle_Factura::with('producto')->where('factura_id', $factura->id)->get();
-
-        $totalCost = 0;
-        $cartItems = [];
-        
-        foreach ($factura->productos as $producto) {
-            // dd($producto);
-            $cartItems[] = [
-                'producto' => $producto, // Almacena el objeto Producto completo
-                'cantidad' => $producto->pivot->cantidad,
-                'precio' => $producto->precio,
-                'subtotal' => $producto->pivot->cantidad * $producto->precio,
-            ];            
-            $totalCost += $producto->pivot->cantidad * $producto->precio;
-        }
-
+    public function descargar_factura(Factura $factura)
+    {
         $data = [
-            'precio' => $totalCost,
-            'fecha' => $factura->fecha,
-            'cartItems' => $cartItems,
+            'factura' => $factura,
         ];
 
         $pdf = \PDF::loadView('factura_pdf', $data);

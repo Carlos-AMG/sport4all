@@ -13,7 +13,8 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Detalles de la Factura #{{ $factura->id }}</h3>
+                <h3 class="card-title">Detalles de la Factura</h3>
+                <h3 class="card-text">Id de factura: {{$factura->id}}</h3>
             </div>
             <div class="card-body">
                 <h4 class="mb-4">Productos:</h4>
@@ -45,7 +46,9 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <p>Total de la compra: ${{ $totalCompra }}</p>
+                    <p>Subtotal: ${{ $totalCompra }}</p>
+                    <p>IVA ({{ $factura->iva }}%): ${{ number_format(($totalCompra * $factura->iva) / 100, 2) }}</p>
+                    <p>Total de la compra: ${{ $totalCompra + ($totalCompra * $factura->iva) / 100 }}</p>
                 @else
                     <p>No hay productos en esta factura.</p>
                 @endif

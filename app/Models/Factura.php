@@ -20,5 +20,5 @@ class Factura extends Model
     }
     
 
-    protected $fillable = ['fecha','user_id'];
+    protected $fillable = ['fecha','user_id', 'iva'];
 }
